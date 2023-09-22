@@ -1,0 +1,18 @@
+{
+    "tracker": [
+        {
+            "id": 1,
+            "type": "income",
+            "nominal": 1000000,
+            "note": "salary",
+            "date": "2023-08-01"
+        },
+        {
+            "id": 2,
+            "type": "expence",
+            "nominal": 50000,
+            "note": "coffee",
+            "date": "2023-08-02"
+        }
+    ]
+}
