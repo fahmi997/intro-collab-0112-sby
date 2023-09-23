@@ -41,7 +41,7 @@ const showData = (_data, _params) =>{
     });
 
     for(const i in temp){
-        result += `${no}. ${temp.nominal}, Type : ${temp.type}, Note : ${temp.note}, Date : ${temp.date}`
+        result += `${no}. ${temp[i].nominal.toLocaleString("ID",{style: "currency", currency: "IDR"})}, Type : ${temp[i].type}, Note : ${temp[i].note}, Date : ${temp[i].date}`
         i === temp.length - 1 ? result += `` : result += `\n`;
         no++;
     }
@@ -83,5 +83,5 @@ module.exports = {
     addData,
     updateData,
     deleteData,
-    showData,
+    showData
 };
