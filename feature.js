@@ -28,6 +28,18 @@ const addData = (data, property, _type, _nominal, _note, _date) => {
 }
 
 // Feature#2: Show data based on date
+const showData = (_data, _params) =>{
+    let no = 1;
+    let {prop, start, end} = _params
+    let result = _data[prop].filter((el) => {
+        let dataDate = new Date(el.date);
+        let startDate = new Date(start);
+        let endDate = new Date(end);
+        if( dataDate >= startDate && dataDate <= endDate){
+            return el
+        } 
+    });
+};
 
 // Feature#3: Update data
 const updateData = (data, inputUser) => {
