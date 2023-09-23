@@ -28,7 +28,7 @@ const addData = (_data, property, _type, _nominal, _note, _date) => {
 }
 
 // Feature#2: Show data based on date
-const showData = (_data, _params) =>{
+const showDatabyDate = (_data, _params) =>{
     let no = 1, result = "";
     let {prop, start, end} = _params
     let temp = _data[prop].filter((el) => {
@@ -83,5 +83,5 @@ module.exports = {
     addData,
     updateData,
     deleteData,
-    showData
+    showDatabyDate
 };
