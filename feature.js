@@ -6,21 +6,21 @@
  */
 
 // Feature#1: Add data
-const addData = (data, property, _type, _nominal, _note, _date) => {
+const addData = (_data, property, _type, _nominal, _note, _date) => {
     // cari id tertinggi
     // id dimulai dari 1, id = index+1
-    let id = data["tracker"].length;
+    let id = _data["tracker"].length;
     let nominal = parseInt(_nominal);
     let isdeleted = false;
     // convert nominal dan id
     // protect feature tambahan, ntar
-    data["tracker"].push({id, _type, nominal, _note, _date, isdeleted});
+    _data["tracker"].push({id, _type, nominal, _note, _date, isdeleted});
     // console.log(data.tracker);
     // console.log(id);
     // console.log(data.tracker.length);
-    let sendData = JSON.stringify(data, null, 2);
+    let sendData = JSON.stringify(_data, null, 2);
     fs.writeFileSync("data.json", sendData);
-    return data;
+    return _data;
 }
 
 // Feature#2: Show data based on date
