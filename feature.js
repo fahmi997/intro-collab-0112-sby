@@ -29,9 +29,9 @@ const addData = (data, property, _type, _nominal, _note, _date) => {
 
 // Feature#2: Show data based on date
 const showData = (_data, _params) =>{
-    let no = 1;
+    let no = 1, result = "";
     let {prop, start, end} = _params
-    let result = _data[prop].filter((el) => {
+    let temp = _data[prop].filter((el) => {
         let dataDate = new Date(el.date);
         let startDate = new Date(start);
         let endDate = new Date(end);
@@ -39,6 +39,14 @@ const showData = (_data, _params) =>{
             return el
         } 
     });
+
+    for(const i in temp){
+        result += `${no}. ${temp.nominal}, Type : ${temp.type}, Note : ${temp.note}, Date : ${temp.date}`
+        i === temp.length - 1 ? result += `` : result += `\n`;
+        no++;
+    }
+
+    return `Expense tracker on ${start} - ${end}:\n${result}`;
 };
 
 // Feature#3: Update data
