@@ -69,6 +69,7 @@ const deleteData = (data, inputUser) => {
 // Feature#5: Show data: Expense, Income, and left money
 
 
+// 72 dihapus
 
 module.exports = {
     addData,
