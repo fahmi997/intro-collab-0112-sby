@@ -75,4 +75,5 @@ module.exports = {
     addData,
     updateData,
     deleteData,
+    showData,
 };
