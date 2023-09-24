@@ -42,11 +42,16 @@ const showData = (_data, _params) =>{
 };
 
 // Feature#3: Update data
-const updateData = (_data, _nominal, _note, _date) => {
+const updateData = (_data, _index, _nominal, _note, _date) => {
+    // ! input user untuk memilih data melalui index, bukan ID
     // edit = nominal, note, date
-    arrObj[index].name = _nama;
-    arrObj[index].stock = _stock;
-    arrObj[index].price = _harga;
+    _data["tracker"][_index - 1].nominal = _nominal;
+    _data["tracker"][_index - 1].note = _note;
+    _data["tracker"][_index - 1].date = _date;
+    // ! ????
+    let sendData = JSON.stringify(_data, null, 2);
+    fs.writeFileSync("data.json", sendData);
+    // ! ----
     return _data;
 }
 
