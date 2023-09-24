@@ -5,9 +5,7 @@
  * 4. Use camelCase for fucntion name
  */
 
-const fs = require("fs");
-
-
+import data from './data.json' assert {type: 'json'}
 
 // Feature#1: Add data
 const addData = (_data, property, _type, _nominal, _note, _date) => {
@@ -28,10 +26,10 @@ const addData = (_data, property, _type, _nominal, _note, _date) => {
 }
 
 // Feature#2: Show data based on date
-const showDatabyDate = (_data, _params) =>{
+const showDatabyDate = (_params) =>{
     let no = 1, result = "";
-    let {prop, start, end} = _params
-    let temp = _data[prop].filter((el) => {
+    let {start, end} = _params
+    let temp = data.tracker.filter((el) => {
         let dataDate = new Date(el.date);
         let startDate = new Date(start);
         let endDate = new Date(end);
@@ -86,22 +84,21 @@ const deleteData = (_data, inputUser) => {
     return _data;
 };
 
-// Feature#5: Show data: Expense, Income, and left money
-const showData = (_data) => {
+// Feature#5: Show data: Expense, Income, and remaining money
+const showData = () => {
     let no = 1, result = "";
     let remaining = 0;
 
-    for(const i in _data){
-        console.log(_data[i].type);
-        if(_data[i].type === "income") remaining += _data[i].nominal;
-        else remaining -= _data[i].nominal;
+    for(const i in data.tracker){
+        if(data.tracker[i].type === "income") remaining += data.tracker[i].nominal;
+        else remaining -= data.tracker[i].nominal;
     }
 
-    _data.sort();
+    data.tracker.sort();
 
-    for(const i in _data){
-        result += `${no}. ${_data[i].nominal.toLocaleString("ID",{style: "currency", currency: "IDR"})}, Type : ${_data[i].type}, Note : ${_data[i].note}, Date : ${_data[i].date}`
-        i === _data.length - 1 ? result += `` : result += `\n`;
+    for(const i in data.tracker){
+        result += `${no}. ${data.tracker[i].nominal.toLocaleString("ID",{style: "currency", currency: "IDR"})}, Type : ${data.tracker[i].type}, Note : ${data.tracker[i].note}, Date : ${data.tracker[i].date}`
+        i === data.tracker.length - 1 ? result += `` : result += `\n`;
         no++;
     }
 
@@ -109,10 +106,32 @@ const showData = (_data) => {
 };
 
 
-module.exports = {
-    addData,
-    updateData,
-    deleteData,
-    showDatabyDate,
-    showData
-};
+
+let loop = true;
+
+      while (loop) {
+        let menu = prompt("Menu:\n1. Add data\n2. Edit data\n3. Delete data\n4. Show data by date\n5. Show all data\n0. Exit");
+
+        switch(menu){
+          case "1":
+            break;
+          case "2":
+            break;
+          case "3":
+            break;
+          case "4":
+            let start = prompt("Enter start date: (YYYY-MM-DD)");
+            let end = prompt("Enter end date: (YYYY-MM-DD)");
+            alert(`${showDatabyDate({start, end})}`);
+            break;
+          case "5":
+            alert(showData());
+            break;
+          case "0":
+              loop = false;
+              break;
+          default:
+            alert("Menu not available!");
+        };
+        loop = confirm("Return to menu?");
+      };
