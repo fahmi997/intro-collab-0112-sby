@@ -64,23 +64,26 @@ const updateData = (_data, _index, _nominal, _note, _date) => {
 }
 
 // Feature#4: Delete data
-const deleteData = (data, inputUser) => {
-    
-    // ! data["tracker"]["index"]["key"]
-    
+const deleteData = (_data, inputUser) => {
+    // ! syntax: _data["tracker"]["index"]["key"]
     let index = inputUser-1;
 
     //isdeleted ganti nilai ke "true"
-    data["tracker"][index]["isDeleted"] = true;
+    _data["tracker"][index]["isDeleted"] = true;
 
     // tampung isi ke var "temp"
-    let temp = data["tracker"][index];
+    let temp = _data["tracker"][index];
 
     // HAPUS. splice dari "tracker"
-    data["tracker"][index].splice(index, 1);
+    _data["tracker"][index].splice(index, 1);
 
     // PINDAH KE ArrObj BARU. "temp" push ke "deletedData"
-    data["deletedData"].push(temp);
+    _data["deletedData"].push(temp);
+
+    // write to
+    let sendData = JSON.stringify(_data, null, 2);
+    fs.writeFileSync("data.json", sendData);
+    return _data;
 };
 
 // Feature#5: Show data: Expense, Income, and left money
