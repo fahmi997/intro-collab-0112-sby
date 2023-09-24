@@ -13,7 +13,7 @@ const fs = require("fs");
 const addData = (_data, property, _type, _nominal, _note, _date) => {
     // cari id tertinggi
     // id dimulai dari 1, id = index+1
-    let id = _data["tracker"].length;
+    let id = _data["tracker"].length + 1;
     let nominal = parseInt(_nominal);
     let isdeleted = false;
     // convert nominal dan id
