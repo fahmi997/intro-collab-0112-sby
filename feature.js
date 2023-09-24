@@ -48,8 +48,7 @@ const updateData = (data, inputUser) => {
 
 // Feature#4: Delete data
 const deleteData = (_data, inputUser) => {
-    // ! data["tracker"]["index"]["key"]
-    
+    // ! syntax: _data["tracker"]["index"]["key"]
     let index = inputUser-1;
 
     //isdeleted ganti nilai ke "true"
