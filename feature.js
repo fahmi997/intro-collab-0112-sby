@@ -11,7 +11,7 @@ import data from './data.json' assert {type: 'json'}
 const addData = (_data, property, _type, _nominal, _note, _date) => {
     // cari id tertinggi
     // id dimulai dari 1, id = index+1
-    let id = _data["tracker"].length;
+    let id = _data["tracker"].length + 1;
     let nominal = parseInt(_nominal);
     let isdeleted = false;
     // convert nominal dan id
@@ -48,28 +48,40 @@ const showDatabyDate = (_params) =>{
 };
 
 // Feature#3: Update data
-const updateData = (data, inputUser) => {
-
+const updateData = (_data, _index, _nominal, _note, _date) => {
+    // ! input user untuk memilih data melalui index, bukan ID
+    // edit = nominal, note, date
+    _data["tracker"][_index - 1].nominal = _nominal;
+    _data["tracker"][_index - 1].note = _note;
+    _data["tracker"][_index - 1].date = _date;
+    // ! write to JSON
+    let sendData = JSON.stringify(_data, null, 2);
+    fs.writeFileSync("data.json", sendData);
+    // ! ----
+    return _data;
 }
 
 // Feature#4: Delete data
-const deleteData = (data, inputUser) => {
-    
-    // ! data["tracker"]["index"]["key"]
-    
+const deleteData = (_data, inputUser) => {
+    // ! syntax: _data["tracker"]["index"]["key"]
     let index = inputUser-1;
 
     //isdeleted ganti nilai ke "true"
-    data["tracker"][index]["isDeleted"] = true;
+    _data["tracker"][index]["isDeleted"] = true;
 
     // tampung isi ke var "temp"
-    let temp = data["tracker"][index];
+    let temp = _data["tracker"][index];
 
     // HAPUS. splice dari "tracker"
-    data["tracker"][index].splice(index, 1);
+    _data["tracker"][index].splice(index, 1);
 
     // PINDAH KE ArrObj BARU. "temp" push ke "deletedData"
-    data["deletedData"].push(temp);
+    _data["deletedData"].push(temp);
+
+    // write to
+    let sendData = JSON.stringify(_data, null, 2);
+    fs.writeFileSync("data.json", sendData);
+    return _data;
 };
 
 // Feature#5: Show data: Expense, Income, and remaining money

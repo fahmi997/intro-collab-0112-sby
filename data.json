@@ -1,20 +1,30 @@
 {
-    "tracker": [
-        {
-            "id": 1,
-            "type": "income",
-            "nominal": 1000000,
-            "note": "salary",
-            "date": "2023-08-01",
-            "isDeleted": false
-        },
-        {
-            "id": 2,
-            "type": "expence",
-            "nominal": 50000,
-            "note": "coffee",
-            "date": "2023-08-02",
-            "isDeleted": false
-        }
-    ]
+  "tracker": [
+    {
+      "id": 1,
+      "type": "income",
+      "nominal": 1000000,
+      "note": "salary",
+      "date": "2023-08-01",
+      "isDeleted": false
+    },
+    {
+      "id": 2,
+      "type": "expence",
+      "nominal": 50000,
+      "note": "coffee",
+      "date": "2023-08-02",
+      "isDeleted": false
+    }
+  ],
+  "isDeleted": [
+    {
+      "id": 0,
+      "type": "income",
+      "nominal": 750000,
+      "note": "parttime",
+      "date": "2023-07-01",
+      "isDeleted": false
+    }
+  ]
 }
