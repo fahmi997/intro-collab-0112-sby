@@ -8,27 +8,33 @@
 import data from './data.json' assert {type: 'json'}
 
 // Feature#1: Add data
-const addData = (_data, property, _type, _nominal, _note, _date) => {
-    // cari id tertinggi
-    // id dimulai dari 1, id = index+1
-    let id = _data["tracker"].length + 1;
-    let nominal = parseInt(_nominal);
-    let isdeleted = false;
+// const addData = (_type, _nominal, _note, _date) => {
+const addData = (type, nominal, note, date) => {
+    let id = data.tracker.length + 1;
+    nominal = parseInt(nominal);
+    // let isdeleted = false;
+    // ------------
+    // let type = _type.toString();
+    // let note = _note.toString();
+    // let date = _date.toString();
+    // ------------
+    // let type = _type;
+    // let note = _note;
+    // let date = _date;
+    // ------------
     // convert nominal dan id
-    // protect feature tambahan, ntar
-    _data["tracker"].push({id, _type, nominal, _note, _date, isdeleted});
-    // console.log(data.tracker);
-    // console.log(id);
-    // console.log(data.tracker.length);
-    let sendData = JSON.stringify(_data, null, 2);
-    fs.writeFileSync("data.json", sendData);
-    return _data;
+    // data.tracker.push({id, _type, nominal, _note, _date, isdeleted});
+    data.tracker.push({id, type, nominal, note, date});
+
+    // let sendData = JSON.stringify(data.tracker, null, 2);
+    // fs.writeFileSync("data.json", sendData);
+    return "Success adding data";
 }
 
 // Feature#2: Show data based on date
-const showDatabyDate = (_params) =>{
+const showDatabyDate = (params) =>{
     let no = 1, result = "";
-    let {start, end} = _params
+    let {start, end} = params
     let temp = data.tracker.filter((el) => {
         let dataDate = new Date(el.date);
         let startDate = new Date(start);
@@ -48,40 +54,43 @@ const showDatabyDate = (_params) =>{
 };
 
 // Feature#3: Update data
-const updateData = (_data, _index, _nominal, _note, _date) => {
+// const updateData = (index, nominal, note, date) => {
+const updateData = (index, params) => {
     // ! input user untuk memilih data melalui index, bukan ID
     // edit = nominal, note, date
-    _data["tracker"][_index - 1].nominal = _nominal;
-    _data["tracker"][_index - 1].note = _note;
-    _data["tracker"][_index - 1].date = _date;
+    const {field, value} = params
+    data.tracker[index - 1][field] = Number(value) == value ? parseInt(value) : value;
+    // data.tracker[index - 1].nominal = ! nominal ? data.tracker[index - 1].nominal : nominal;
+    // data.tracker[index - 1].note = note;
+    // data.tracker[index - 1].date = date;
     // ! write to JSON
-    let sendData = JSON.stringify(_data, null, 2);
-    fs.writeFileSync("data.json", sendData);
+    // let sendData = JSON.stringify(data.tracker, null, 2);
+    // fs.writeFileSync("data.json", sendData);
     // ! ----
-    return _data;
+    return "Success update data";
 }
 
 // Feature#4: Delete data
-const deleteData = (_data, inputUser) => {
+const deleteData = (inputUser) => {
     // ! syntax: _data["tracker"]["index"]["key"]
     let index = inputUser-1;
 
-    //isdeleted ganti nilai ke "true"
-    _data["tracker"][index]["isDeleted"] = true;
-
+    // //isdeleted ganti nilai ke "true"
+    // data.tracker[index]["isDeleted"] = true;
+    
     // tampung isi ke var "temp"
-    let temp = _data["tracker"][index];
-
+    let temp = data.tracker[index];
+    
     // HAPUS. splice dari "tracker"
-    _data["tracker"][index].splice(index, 1);
-
+    data.tracker.splice(index, 1);
+    
     // PINDAH KE ArrObj BARU. "temp" push ke "deletedData"
-    _data["deletedData"].push(temp);
+    data.deleteData.push(temp);
 
     // write to
-    let sendData = JSON.stringify(_data, null, 2);
-    fs.writeFileSync("data.json", sendData);
-    return _data;
+    // let sendData = JSON.stringify(data, null, 2);
+    // fs.writeFileSync("data.json", sendData);
+    return "Success delete data";
 };
 
 // Feature#5: Show data: Expense, Income, and remaining money
@@ -114,10 +123,44 @@ let loop = true;
 
         switch(menu){
           case "1":
+            // ! format function addData = (_data, property, _type, _nominal, _note, _date) => {}
+            let type = prompt("Masukkan tipe Tracker: income/expense");
+            let nominal = parseInt(prompt("Masukkan tipe nominal")); // parse int
+            let note = prompt("Masukkan catatan sumber income/expense");
+            let date = prompt("Masukkan tanggal income/expense. Dengan format YYYY-MM-DD");
+            // panggil fungsi
+            // addData(_type, _nominal, _note, _date);
+            addData(type, nominal, note, date);
             break;
           case "2":
+            // ! "(index - 1)" command already on function, on feature.js
+            let field = "";
+            let update = prompt(`Pilih data yang akan diganti :\n ${showData()}`)
+            
+            if(update <= data.tracker.length){
+                let updtData = prompt("Menu :\n 1. Nominal\n 2. Note\n 3. Date\n");
+                if(updtData === "1" ) {field = "nominal"}
+                else if(updtData === "2" ) {field = "note"}
+                else if(updtData === "3" ) {field = "date"}
+                else alert("Menu tidak tersedia!");
+            }
+            else { alert("Data tidak tersedia!"); }
+
+            let value = prompt("Masukkan data");
+            updateData(update, {field, value});
+
+            loop = confirm("Apakah mau lanjut?");
+            
+            // let nominal2 = parseInt(prompt("Masukkan tipe nominal baru")); // parse int
+            // let note2 = prompt("Masukkan catatan sumber income/expense baru");
+            // let date2 = prompt("Masukkan tanggal income/expense baru. Dengan format YYYY-MM-DD");
             break;
           case "3":
+            // ! format function deleteData = (_data, inputUser) => {}
+            // ! "(index - 1)" command already on function, on feature.js
+            var index3 = parseInt(prompt("Masukkan nomor dari data yang ingin dihapus")); // parse int
+            // panggil fungsi
+            deleteData(index3);
             break;
           case "4":
             let start = prompt("Enter start date: (YYYY-MM-DD)");
