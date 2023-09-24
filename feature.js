@@ -75,13 +75,32 @@ const deleteData = (data, inputUser) => {
 };
 
 // Feature#5: Show data: Expense, Income, and left money
+const showData = (_data) => {
+    let no = 1, result = "";
+    let remaining = 0;
 
+    for(const i in _data){
+        console.log(_data[i].type);
+        if(_data[i].type === "income") remaining += _data[i].nominal;
+        else remaining -= _data[i].nominal;
+    }
 
-// 72 dihapus
+    _data.sort();
+
+    for(const i in _data){
+        result += `${no}. ${_data[i].nominal.toLocaleString("ID",{style: "currency", currency: "IDR"})}, Type : ${_data[i].type}, Note : ${_data[i].note}, Date : ${_data[i].date}`
+        i === _data.length - 1 ? result += `` : result += `\n`;
+        no++;
+    }
+
+    return `Expense tracker :\n${result}\nRemaining Money: ${remaining.toLocaleString("ID",{style: "currency", currency:"IDR"})}`;
+};
+
 
 module.exports = {
     addData,
     updateData,
     deleteData,
-    showDatabyDate
+    showDatabyDate,
+    showData
 };
