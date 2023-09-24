@@ -1,13 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-        
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <!-- <script src="feature.js"></script> -->
+  </head>
+  <body>
+    <script src="feature.js">
+
+      // const {showData, showDatabyDate} = require("./feature.js")
+
+      let loop = true;
+
+      while (loop) {
+        let menu = prompt("Menu:\n1. Add data\n2. Edit data\n3. Delete data\n4. Show data by date\n5. Show all data\n0. Exit");
+
+        switch(menu){
+            // 1. add
+            // 2. edit
+            // 3. delete
+            // 4. show by date
+        // 5. show
+            case "1":
+                // ! format function addData = (_data, property, _type, _nominal, _note, _date) => {}
+                let _type = prompt("Masukkan tipe Tracker: income/expense");
+                let _nominal = parseInt(prompt("Masukkan tipe nominal")); // parse int
+                let _note = prompt("Masukkan catatan sumber income/expense");
+                let _date = prompt("Masukkan tanggal income/expense. Dengan format YYYY-MM-DD");
+                // panggil fungsi
+                addData(_data, null, _type, _nominal, _note, _date);
+            break;
+
+            case "2":
+                // ! format function 
+            break;
+
+            case "3":
+                // ! format function 
+            break;
+
+            case "4":
+                // bagian fahmi
+                let start = prompt("Enter start date: (YYYY-MM-DD)");
+                let end = prompt("Enter end date: (YYYY-MM-DD)");
+                alert(`${showDatabyDate({start, end})}`);
+            break;
+            case "5":
+                // bagian fahmi
+                alert(`${showData()}`);
+            break;
+            case "0":
+                loop = false;
+            break;
+            default:
+                alert("Menu not available!");
+        };
+        loop = confirm("Return to menu?");
+      };
+      
     </script>
-</body>
+  </body>
 </html>
