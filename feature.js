@@ -50,8 +50,17 @@ const showDatabyDate = (_data, _params) =>{
 };
 
 // Feature#3: Update data
-const updateData = (data, inputUser) => {
-
+const updateData = (_data, _index, _nominal, _note, _date) => {
+    // ! input user untuk memilih data melalui index, bukan ID
+    // edit = nominal, note, date
+    _data["tracker"][_index - 1].nominal = _nominal;
+    _data["tracker"][_index - 1].note = _note;
+    _data["tracker"][_index - 1].date = _date;
+    // ! write to JSON
+    let sendData = JSON.stringify(_data, null, 2);
+    fs.writeFileSync("data.json", sendData);
+    // ! ----
+    return _data;
 }
 
 // Feature#4: Delete data
