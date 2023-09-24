@@ -48,7 +48,7 @@ const updateData = (_data, _index, _nominal, _note, _date) => {
     _data["tracker"][_index - 1].nominal = _nominal;
     _data["tracker"][_index - 1].note = _note;
     _data["tracker"][_index - 1].date = _date;
-    // ! ????
+    // ! write to JSON
     let sendData = JSON.stringify(_data, null, 2);
     fs.writeFileSync("data.json", sendData);
     // ! ----
