@@ -42,8 +42,12 @@ const showData = (_data, _params) =>{
 };
 
 // Feature#3: Update data
-const updateData = (data, inputUser) => {
-
+const updateData = (_data, _nominal, _note, _date) => {
+    // edit = nominal, note, date
+    arrObj[index].name = _nama;
+    arrObj[index].stock = _stock;
+    arrObj[index].price = _harga;
+    return _data;
 }
 
 // Feature#4: Delete data
